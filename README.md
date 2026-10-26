@@ -15,7 +15,7 @@ A **MapServer cookbook** for fast OGC services from mapfiles, via MS4W. Patterns
 
 ## Repository role and status
 
-**Status:** Active, public — seeding. Pattern passes land in follow-up work from fleet-verified setups; the tables below list what is planned, not what is already written.
+**Status:** Active, public — first mapfile pattern written with a local synthetic GeoJSON fixture. CI validates the mapfile contract and fixture; serving behavior still requires a MapServer/MS4W runtime check.
 
 **What this repository is:** MapServer patterns — see the table below.
 
@@ -33,11 +33,14 @@ Platform engineers who want a lean, fast map server next to GeoServer.
 - PostGIS-backed Postgres for the layer pass (see postgis-cookbook)
 - Bash
 
-## Patterns (planned)
+## Patterns
 
-| # | Example | What it will demonstrate |
-|---|---------|--------------------------|
-| 01 | `01-mapfile-basics` | Writing a mapfile: layers, classes, and projections |
+| # | Example | Status | What it demonstrates |
+|---|---------|--------|---------------------|
+| 01 | [01-mapfile-basics](examples/01-mapfile-basics/README.md) | Written; runtime check pending | Minimal WMS-ready mapfile with an OGR GeoJSON point layer |
+| 02 | `02-wms-service` | Planned | Serving WMS and validating GetCapabilities |
+| 03 | `03-postgis-layer` | Planned | PostGIS layers with connection pooling notes |
+| 04 | `04-performance` | Planned | Tiling, caching, and shapefile-vs-database trade-offs |
 | 02 | `02-wms-service` | Serving WMS and validating GetCapabilities |
 | 03 | `03-postgis-layer` | PostGIS layers with connection pooling notes |
 | 04 | `04-performance` | Tiling, caching, and shapefile-vs-database trade-offs |
@@ -46,15 +49,17 @@ Platform engineers who want a lean, fast map server next to GeoServer.
 
 ```text
 mapserver-cookbook/
-├── examples/          # pattern passes, landing in follow-up work
+├── examples/01-mapfile-basics/  # mapfile and synthetic GeoJSON fixture
+├── tests/             # mapfile/fixture contract tests
+├── .github/workflows/ # CI
 ├── README.md
 └── LICENSE
 ```
 
 ## Roadmap
 
-- First pattern pass: the first two table rows
-- Second pass: the remaining rows, from fleet-verified setups
+- Validate `demo.map` with the target MS4W/MapServer build and confirm `GetCapabilities` lists `sample_points`.
+- Add WMS image requests and PostGIS layers after local service configuration and access controls are verified.
 
 ## Contributing
 
