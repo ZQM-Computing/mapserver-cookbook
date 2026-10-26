@@ -41,9 +41,6 @@ Platform engineers who want a lean, fast map server next to GeoServer.
 | 02 | `02-wms-service` | Planned | Serving WMS and validating GetCapabilities |
 | 03 | `03-postgis-layer` | Planned | PostGIS layers with connection pooling notes |
 | 04 | `04-performance` | Planned | Tiling, caching, and shapefile-vs-database trade-offs |
-| 02 | `02-wms-service` | Serving WMS and validating GetCapabilities |
-| 03 | `03-postgis-layer` | PostGIS layers with connection pooling notes |
-| 04 | `04-performance` | Tiling, caching, and shapefile-vs-database trade-offs |
 
 ## Repository layout
 

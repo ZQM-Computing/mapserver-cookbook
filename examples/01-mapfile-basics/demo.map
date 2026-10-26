@@ -19,6 +19,15 @@ MAP
     END
   END
 
+  SYMBOL
+    NAME "circle"
+    TYPE ELLIPSE
+    POINTS
+      1 1
+    END
+    FILLED TRUE
+  END
+
   LAYER
     NAME "sample_points"
     TYPE POINT
