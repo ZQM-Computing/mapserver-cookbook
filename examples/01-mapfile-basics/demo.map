@@ -1,0 +1,46 @@
+MAP
+  NAME "zqm_mapserver_demo"
+  STATUS ON
+  SIZE 640 480
+  EXTENT -123.0 36.0 -121.0 38.0
+  UNITS DD
+  IMAGECOLOR 255 255 255
+  SHAPEPATH "data"
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+
+  WEB
+    METADATA
+      "wms_title" "ZQM MapServer Cookbook Demo"
+      "wms_srs" "EPSG:4326 EPSG:3857"
+      "ows_enable_request" "GetCapabilities GetMap GetFeatureInfo"
+    END
+  END
+
+  LAYER
+    NAME "sample_points"
+    TYPE POINT
+    STATUS ON
+    CONNECTIONTYPE OGR
+    CONNECTION "sample_points.geojson"
+    DATA "sample_points"
+    PROJECTION
+      "init=epsg:4326"
+    END
+    CLASS
+      NAME "Sample locations"
+      STYLE
+        COLOR 35 105 190
+        OUTLINECOLOR 255 255 255
+        SIZE 9
+        SYMBOL "circle"
+      END
+    END
+    METADATA
+      "wms_title" "Synthetic sample points"
+      "gml_include_items" "all"
+    END
+  END
+END
