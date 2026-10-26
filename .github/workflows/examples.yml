@@ -20,3 +20,31 @@ jobs:
         run: python -m compileall -q tests
       - name: Run mapfile and fixture contracts
         run: python -m unittest discover -s tests -v
+
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MapServer and GDAL CLI tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes mapserver-bin gdal-bin
+      - name: Render the synthetic mapfile
+        run: |
+          map2img \
+            -m examples/01-mapfile-basics/demo.map \
+            -o "$RUNNER_TEMP/mapserver-demo.png" \
+            -e -123 36 -121 38 \
+            -s 640 480
+      - name: Verify rendered artifact dimensions
+        run: |
+          gdalinfo -json "$RUNNER_TEMP/mapserver-demo.png" > "$RUNNER_TEMP/mapserver-demo.json"
+          python - "$RUNNER_TEMP/mapserver-demo.json" <<'PY'
+          import json
+          import sys
+
+          info = json.load(open(sys.argv[1], encoding="utf-8"))
+          if info.get("size") != [640, 480]:
+              raise SystemExit(f"Unexpected render dimensions: {info.get('size')}")
+          print(f"PASS: rendered {info['size'][0]}x{info['size'][1]} image")
+          PY
