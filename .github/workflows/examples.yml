@@ -11,6 +11,7 @@ permissions:
 jobs:
   static:
     runs-on: [self-hosted, Linux, X64, zqm-linux]
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,6 +24,7 @@ jobs:
 
   render:
     runs-on: [self-hosted, Linux, X64, zqm-linux]
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - name: Install MapServer and GDAL CLI tools
